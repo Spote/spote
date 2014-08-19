@@ -1,0 +1,49 @@
+{
+	"paths": {
+		"dest": "./dev",
+		"js": {
+			"vendor": "./dev/vendor",
+			"dest": "./dev"
+		},
+		"css": {
+			"dest": "./dev",
+			"sourcemaps": "./dev/maps"
+		},
+		"html": {
+			"dest": "./dev"
+		}
+	},
+	"files": {
+		"js": {
+			"vendor": [
+	            "./bower_components/angular/angular.js",
+	            "./bower_components/angular-ui-router/release/angular-ui-router.js",
+	            "./bower_components/traceur-runtime/traceur-runtime.js",
+	            "./bower_components/es6-module-loader/dist/es6-module-loader.js",
+	            "./bower_components/system.js/dist/system.js",
+	            "./bower_components/jquery/dist/jquery.js",
+	            "./bower_components/semantic/build/packaged/javascript/semantic.js"
+			],
+			"src": [
+				"./src/*.js",
+				"./src/**/*.js"
+			]
+		},
+		"css": {
+			"src": [
+				"./bower_components/semantic/build/packaged/css/semantic.css"
+			]
+		},
+		"sass": {
+			"src": [
+				"./src/app.scss"
+			]
+		},
+		"html": {
+			"src": [
+				"./src/*.html",
+				"./src/**/*.html"
+			]
+		}
+	}
+}

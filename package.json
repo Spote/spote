@@ -1,0 +1,26 @@
+{
+  "name": "Spote",
+  "version": "0.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Spote/Frontend.git"
+  },
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "gulp": "^3.8.7",
+    "gulp-connect": "^2.0.6",
+    "gulp-plumber": "^0.6.4",
+    "gulp-rimraf": "^0.1.0",
+    "gulp-sass": "^0.7.3",
+    "gulp-sourcemaps": "^1.1.1",
+    "gulp-traceur": "^0.13.0",
+    "gulp-watch": "^0.6.9",
+    "require-dir": "^0.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
