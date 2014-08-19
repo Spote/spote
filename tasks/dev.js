@@ -6,11 +6,20 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     traceur = require('gulp-traceur'),
     plumber = require('gulp-plumber'),
+    modRewrite = require('connect-modrewrite'),
     config = require('./dev.json');
 
 gulp.task('dev:connect', function() {
     return connect.server({
-        root: config.paths.dest
+        root: config.paths.dest,
+        livereload: true,
+        middleware: function() {
+            return [
+                modRewrite([
+                    '!\\.html|\\.js|\\.css|\\.png|\\.jpg|\\.jpeg$ /index.html [L]'
+                ])
+            ];
+        }
     });
 });
 

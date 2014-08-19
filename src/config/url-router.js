@@ -2,7 +2,7 @@
 
 export default function configureUrlRouter($stateProvider, $urlRouterProvider,
         $locationProvider, accessState) {
-    //$locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true);
 
     $stateProvider
         .state('guest', {
