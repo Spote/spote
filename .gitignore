@@ -5,3 +5,6 @@ node_modules/*
 # Artifacts
 .sass-cache/*
 dev/*
+
+# Unit testing
+coverage/*
