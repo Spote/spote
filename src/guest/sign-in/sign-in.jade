@@ -1,0 +1,36 @@
+//
+    Copyright 2014 Jack Wakefield
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+.ink-grid.login
+  .column-group.push-center.middle-push-middle.large-push-middle.xlarge-push-middle
+    .all-32.tiny-auto.small-auto.tiny-top-space.small-top-space
+      h2.slab-300 Sign in to Spotify
+      form.ink-form
+        .control-group
+          label(for="username") Username
+          .control
+            input#username(type="text", placeholder="Username / Email", required="")
+          p.tip Your Spotify #[strong premium] username or Facebook email.
+        .control-group
+          label(for="password") Password
+          .control
+            input#password(type="password", placeholder="Password", required="")
+        .control-group
+          ul.control.unstyled.inline
+            li
+              input#remember-me(type="checkbox")
+              label(for="remember-me") Remember me
+        .control-group
+          button.ink-button.green Submit
