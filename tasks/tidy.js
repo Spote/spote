@@ -14,7 +14,17 @@
  */
 
 var gulp = require('gulp'),
-    requireDir = require('require-dir'),
-    dir = requireDir('./tasks');
+    csscomb = require('gulp-csscomb'),
+    plumber = require('gulp-plumber'),
+    config = require('./tidy.json');
 
-gulp.task('default', ['dev']);
+gulp.task('tidy:sass', function() {
+    gulp.src(config.files.sass.src)
+        .pipe(plumber())
+        .pipe(csscomb())
+        .pipe(gulp.dest(config.paths.sass.dest));
+});
+
+gulp.task('tidy', [
+    'tidy:sass'
+]);

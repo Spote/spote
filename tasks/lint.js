@@ -14,7 +14,25 @@
  */
 
 var gulp = require('gulp'),
-    requireDir = require('require-dir'),
-    dir = requireDir('./tasks');
+    jshint = require('gulp-jshint'),
+    plumber = require('gulp-plumber'),
+    scsslint = require('gulp-scss-lint'),
+    config = require('./lint.json');
 
-gulp.task('default', ['dev']);
+gulp.task('lint:js', function() {
+    gulp.src(config.paths.js)
+        .pipe(plumber())
+        .pipe(jshint())
+        .pipe(jshint.reporter('jshint-stylish'));
+});
+
+gulp.task('lint:sass', function() {
+    gulp.src(config.paths.sass)
+        .pipe(plumber())
+        .pipe(scsslint());
+});
+
+gulp.task('lint', [
+    'lint:js',
+    'lint:sass'
+]);

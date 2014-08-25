@@ -1,0 +1,14 @@
+{
+    "paths": {
+        "sass": {
+            "dest": "./src"
+        }
+    },
+    "files": {
+        "sass": {
+            "src": [
+                "./src/**/*.scss"
+            ]
+        }
+    }
+}

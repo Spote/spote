@@ -1,49 +1,75 @@
 {
-	"paths": {
-		"dest": "./dev",
-		"js": {
-			"vendor": "./dev/vendor",
-			"dest": "./dev"
-		},
-		"css": {
-			"dest": "./dev",
-			"sourcemaps": "./dev/maps"
-		},
-		"html": {
-			"dest": "./dev"
-		}
-	},
-	"files": {
-		"js": {
-			"vendor": [
-	            "./bower_components/angular/angular.js",
-	            "./bower_components/angular-ui-router/release/angular-ui-router.js",
-	            "./bower_components/traceur-runtime/traceur-runtime.js",
-	            "./bower_components/es6-module-loader/dist/es6-module-loader.js",
-	            "./bower_components/system.js/dist/system.js",
-	            "./bower_components/jquery/dist/jquery.js",
-	            "./bower_components/semantic/build/packaged/javascript/semantic.js"
-			],
-			"src": [
-				"./src/*.js",
-				"./src/**/*.js"
-			]
-		},
-		"css": {
-			"src": [
-				"./bower_components/semantic/build/packaged/css/semantic.css"
-			]
-		},
-		"sass": {
-			"src": [
-				"./src/app.scss"
-			]
-		},
-		"html": {
-			"src": [
-				"./src/*.html",
-				"./src/**/*.html"
-			]
-		}
-	}
+    "paths": {
+        "dest": "./dev",
+        "js": {
+            "vendor": "./dev/vendor",
+            "dest": "./dev"
+        },
+        "css": {
+            "vendor": "./dev/vendor",
+            "dest": "./dev",
+            "sourcemaps": "./dev/maps"
+        },
+        "images": {
+            "dest": "./dev/images"
+        },
+        "fonts": {
+            "dest": "./dev/fonts"
+        },
+        "jade": {
+            "dest": "./dev"
+        }
+    },
+    "files": {
+        "js": {
+            "vendor": [
+                "./bower_components/angular/angular.js",
+                "./bower_components/angular-animate/angular-animate.js",
+                "./bower_components/angular-ui-router/release/angular-ui-router.js",
+                "./bower_components/traceur-runtime/traceur-runtime.js",
+                "./bower_components/es6-module-loader/dist/es6-module-loader.js",
+                "./bower_components/system.js/dist/system.js",
+                "./bower_components/ui-router-extras/release/ct-ui-router-extras.js",
+                "./bower_components/angular-logex/dist/log-ex-unobtrusive.js"
+            ],
+            "src": [
+                "./src/**/*.js"
+            ]
+        },
+        "css": {
+            "vendor": [
+                "./bower_components/animate.css/animate.css"
+            ],
+            "src": [
+            ]
+        },
+        "sass": {
+            "watch": [
+                "./src/**/*.scss"
+            ],
+            "src": "./src/app.scss",
+            "includes": [
+                "./bower_components/open-sans-fontface",
+                "./bower_components/Ink/src/sass",
+                "./bower_components/Ink/src/sass/contrib"
+            ]
+        },
+        "images": {
+            "src": [
+                "./bower_components/semantic/build/packaged/images/*"
+            ]
+        },
+        "fonts": {
+            "src": [
+                "./bower_components/Ink/dist/fonts/**",
+                "!./bower_components/Ink/dist/fonts/FontAwesome.*",
+                "./bower_components/font-awesome/fonts/**"
+            ]
+        },
+        "jade": {
+            "src": [
+                "./src/**/*.jade"
+            ]
+        }
+    }
 }
