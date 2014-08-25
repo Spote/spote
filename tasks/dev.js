@@ -46,13 +46,13 @@ gulp.task('dev:clean', function() {
         .pipe(rimraf());
 });
 
-gulp.task('dev:build:js:vendor', function() {
+gulp.task('dev:build:js:vendor', ['dev:clean'], function() {
     watch({ glob: config.files.js.vendor })
         .pipe(plumber())
         .pipe(gulp.dest(config.paths.js.vendor));
 });
 
-gulp.task('dev:build:js', function() {
+gulp.task('dev:build:js', ['dev:clean'], function() {
     watch({ glob: config.files.js.src })
         .pipe(plumber())
         .pipe(sourcemaps.init())
@@ -65,13 +65,13 @@ gulp.task('dev:build:js', function() {
         .pipe(gulp.dest(config.paths.js.dest));
 });
 
-gulp.task('dev:build:css:vendor', function() {
+gulp.task('dev:build:css:vendor', ['dev:clean'], function() {
     watch({ glob: config.files.css.vendor })
         .pipe(plumber())
         .pipe(gulp.dest(config.paths.css.vendor));
 });
 
-gulp.task('dev:build:css', function() {
+gulp.task('dev:build:css', ['dev:clean'], function() {
     watch({ glob: config.files.css.src })
         .pipe(plumber())
         .pipe(gulp.dest(config.paths.css.dest));
@@ -87,31 +87,32 @@ gulp.task('dev:build:sass', function() {
         .pipe(gulp.dest(config.paths.css.dest));
 });
 
-gulp.task('dev:build:images', function() {
+gulp.task('dev:build:images', ['dev:clean'], function() {
     watch({ glob: config.files.images.src })
         .pipe(plumber())
         .pipe(gulp.dest(config.paths.images.dest));
 });
 
-gulp.task('dev:build:fonts', function() {
+gulp.task('dev:build:fonts', ['dev:clean'], function() {
     gulp.src(config.files.fonts.src)
         .pipe(plumber())
         .pipe(gulp.dest(config.paths.fonts.dest));
 });
 
-gulp.task('dev:build:jade', function() {
+gulp.task('dev:build:jade', ['dev:clean'], function() {
     watch({ glob: config.files.jade.src })
         .pipe(plumber())
         .pipe(jade())
         .pipe(gulp.dest(config.paths.jade.dest));
 });
 
-gulp.task('dev:watch', function() {
+gulp.task('dev:watch', ['dev:clean'], function() {
     gulp.watch(config.files.sass.watch, ['dev:build:sass']);
 });
 
-gulp.task('dev:build', ['dev:clean'], function() {
+gulp.task('dev:build', function() {
     gulp.start([
+        'dev:clean',
         'dev:build:js:vendor',
         'dev:build:js',
         'dev:build:css:vendor',
@@ -124,7 +125,6 @@ gulp.task('dev:build', ['dev:clean'], function() {
 });
 
 gulp.task('dev', [
-    'dev:clean',
     'dev:build',
     'dev:watch',
     'dev:connect'
