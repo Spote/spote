@@ -1,0 +1,9 @@
+linters:
+  Indentation:
+    width: 4
+  PropertySortOrder:
+    enabled: false
+  EmptyLineBetweenBlocks:
+    enabled: false # until CSSComb adds the feature
+  SpaceAfterComma:
+    enabled: false
