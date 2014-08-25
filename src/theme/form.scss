@@ -12,9 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@import 'ink-flex';
-@import 'theme/theme';
-@import 'contrib/font-awesome/font-awesome';
-@import 'global/connecting/connecting';
-@import 'guest/sign-in/sign-in';
-$fa-font-path: '/fonts/';
+.#{$form-class-name} {
+    .#{$button-class-name} {
+        &:first-child {
+            margin-left: 0;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    .control-group {
+        &:last-child {
+            margin-bottom: 0;
+        }
+        ul:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

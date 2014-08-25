@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@import 'ink-flex';
-@import 'theme/theme';
-@import 'contrib/font-awesome/font-awesome';
-@import 'global/connecting/connecting';
-@import 'guest/sign-in/sign-in';
-$fa-font-path: '/fonts/';
+@import 'page';
+@import 'navigation';
+@import 'animation';
+@import 'form';

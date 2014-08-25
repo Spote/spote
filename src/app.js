@@ -1,28 +1,51 @@
-/* jshint esnext: true */
-/* global angular: false */
+/* Copyright 2014 Jack Wakefield
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
-import configureUrlRouter from './config/url-router';
-import stateChange from './run/state-change';
+import {configureUrlRouter} from './config/url-router';
+import {configureLogExProvider} from './config/log-ex-provider';
+import {checkAccessState} from './run/check-access-state';
 
-import AppController from './app-controller';
+import {AppController} from './app-controller';
 import './home/home-controller';
-import './guest/login/login-controller';
+import './global/connecting/connecting-controller';
+import './guest/sign-in/sign-in-controller';
 
 import './components/communication/communication-service';
+import './components/socket/socket-factory';
 import './components/auth/auth-service';
 
 let app = angular.module('app', [
+        // external dependencies
+        'ngAnimate',
         'ui.router',
+        'ct.ui.router.extras',
+        'log.ex.uo',
+
+        // internal dependencies
         'components.communication',
         'components.auth',
+        'components.socket',
+        'global.connecting',
         'home',
-        'guest.login'
+        'guest.signIn',
     ])
-    .constant('accessStateConst', {
-        guest: false,
-        user: true
-    })
+    .constant('webSocketAddress', 'ws://localhost:51852/ws')
     .config(['$stateProvider', '$urlRouterProvider', '$locationProvider',
-            'accessStateConst', configureUrlRouter])
-    .run(['$rootScope', '$state', 'authService', stateChange])
-    .controller('AppController', ['communicationService', AppController]);
+            configureUrlRouter])
+    .config(['logExProvider', configureLogExProvider])
+    .run(['$rootScope', '$state', 'communicationService', 'authService',
+            checkAccessState])
+    .controller('AppController', ['$scope', '$state', '$window', '$timeout',
+            'communicationService', AppController]);

@@ -12,9 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@import 'ink-flex';
-@import 'theme/theme';
-@import 'contrib/font-awesome/font-awesome';
-@import 'global/connecting/connecting';
-@import 'guest/sign-in/sign-in';
-$fa-font-path: '/fonts/';
+.top-navigation {
+    -webkit-transform: scale3d(1,1,1);
+    width: 100%;
+    height: 45px;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+    background: #1a1a1a;
+}

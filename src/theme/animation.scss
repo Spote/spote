@@ -12,9 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-@import 'ink-flex';
-@import 'theme/theme';
-@import 'contrib/font-awesome/font-awesome';
-@import 'global/connecting/connecting';
-@import 'guest/sign-in/sign-in';
-$fa-font-path: '/fonts/';
+.fade-animation {
+    &.ng-enter,
+    &.ng-leave {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    &.ng-enter {
+        -webkit-animation: fadeIn .7s;
+        -moz-animation: fadeIn .7s;
+        -ms-animation: fadeIn .7s;
+        animation: fadeIn .7s;
+    }
+    &.ng-leave {
+        -webkit-animation: fadeOut .7s;
+        -moz-animation: fadeOut .7s;
+        -ms-animation: fadeOut .7s;
+        animation: fadeOut .7s;
+    }
+}
