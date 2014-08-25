@@ -3,5 +3,4 @@ before_install:
     gem install scss-lint
 before_script:
     npm install
-    gulp dev:clean
     gulp dev:build
