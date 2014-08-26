@@ -30,8 +30,10 @@ class ConnectingController {
         this.$previousState = $previousState;
         this.communicationService = communicationService;
 
-        this.$scope.$on('components.communicationService.connected',
+        this.$scope.$on('components.CommunicationService.connected',
             angular.bind(this, this._onConnect));
+
+        this.communicationService.connect();
     }
 
     /**

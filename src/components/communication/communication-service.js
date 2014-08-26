@@ -18,22 +18,41 @@ import {communicationModule} from './communication';
 export class CommunicationService {
     /**
      * Initialise the communication server.
-     * @param  {Object} $rootScope The scope of the root controller.
-     * @param  {Object} $log The log service.
-     * @param  {SocketFactory} socket The web socket.
-     * @param  {String} address The address to connect to.
+     * @param {Object} $rootScope The scope of the root controller.
+     * @param {Object} $log The log service.
+     * @param {SocketFactory} socket The web socket.
+     * @param {String} address The address to connect to.
      */
     constructor($rootScope, $log, socket, address) {
+        /**
+         * The root scope.
+         * @type {Object}
+         */
         this.$rootScope = $rootScope;
-        this.$log = $log;
+
+        /**
+         * The $log service.
+         * @type {Object}
+         */
+        this.$log = $log.getInstance(
+            'components.communication.CommunicationService');
+
+        /**
+         * The daemon socket.
+         * @type {SocketFactory}
+         */
+        this._socket = socket;
+
+        /**
+         * The daemon address.
+         * @type {String}
+         */
+        this._address = address;
 
         socket.opened = angular.bind(this, this._onOpen);
         socket.closed = angular.bind(this, this._onClose);
         socket.error = angular.bind(this, this._onError);
         socket.message = angular.bind(this, this._onMessage);
-        socket.connect(address);
-
-        this._socket = socket;
     }
 
     /**
@@ -44,24 +63,46 @@ export class CommunicationService {
     }
 
     /**
+     * Whether the app is connecting to the server.
+     */
+    get isConnecting() {
+        return this._socket.isConnecting;
+    }
+
+    connect() {
+        let address = this._address;
+        this.$log.debug('Connecting to daemon (' + address + ')');
+
+        if (this.isConnected || this.isConnecting) {
+            this.$log.error('Can\'t connect (already connected)');
+            return;
+        }
+
+        this._socket.connect(address);
+    }
+
+    /**
      * Callback for the socket open event.
      */
     _onOpen() {
-        this.$rootScope.$broadcast('components.communicationService.connected');
+        this.$rootScope.$broadcast(
+            'components.CommunicationService.connected');
     }
 
     /**
      * Callback for the socket close event.
      */
     _onClose() {
-        this.$rootScope.$broadcast('components.communicationService.disconnected');
+        this.$rootScope.$broadcast(
+            'components.CommunicationService.disconnected');
     }
 
     /**
      * Callback for the socket error event.
      */
     _onError() {
-        this.$rootScope.$broadcast('components.communicationService.error');
+        this.$rootScope.$broadcast(
+            'components.CommunicationService.error');
     }
 
     /**

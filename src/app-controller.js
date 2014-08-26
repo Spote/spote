@@ -29,19 +29,16 @@ export class AppController {
         this.$window = $window;
         this.$timeout = $timeout;
 
-        this.$scope.$on('components.communicationService.disconnected',
-            angular.bind(this, this._onDisconnect));
+        this.$scope.$on('components.CommunicationService.disconnected',
+            angular.bind(this, this._goToConnecting));
 
         if (!communicationService.isConnected &&
                 !communicationService.isConnecting) {
-            this._onDisconnect();
+            this._goToConnecting();
         }
     }
 
-    /**
-     * Callback for the communication disconnect event.
-     */
-    _onDisconnect() {
+    _goToConnecting() {
         this.$timeout(() => {
             this.$state.go('global.connecting');
         });
