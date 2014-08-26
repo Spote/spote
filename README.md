@@ -1,4 +1,4 @@
-# Spote Frontend [![](http://img.shields.io/travis/Spote/Frontend.svg?style=flat-square)](http://travis-ci.org/Spote/Frontend) [![](http://img.shields.io/coveralls/Spote/Frontend.svg?style=flat-square)](https://coveralls.io/r/Spote/Frontend) [![](http://img.shields.io/codeclimate/github/Spote/Frontend.svg?style=flat-square)](https://codeclimate.com/github/Spote/Frontend) ![](http://img.shields.io/david/dev/Spote/Frontend.svg?style=flat-square)
+# Spote Frontend [![](http://img.shields.io/travis/Spote/Frontend.svg?style=flat-square)](http://travis-ci.org/Spote/Frontend) [![](http://img.shields.io/coveralls/Spote/Frontend.svg?style=flat-square)](https://coveralls.io/r/Spote/Frontend) ![](http://img.shields.io/david/dev/Spote/Frontend.svg?style=flat-square)
 
 This repository is for the Spote frontend. Spote is a headless media server for
 Spotify with no dependence on the official Spotify software.
