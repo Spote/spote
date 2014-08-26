@@ -128,8 +128,11 @@ export class SocketFactory {
      * Begin the connection process.
      */
     _beginConnect() {
+        this.$log.debug('Beginning connection process');
+
         // ensure the connect interval doesn't already exist
         if (angular.isDefined(this._connectInterval)) {
+            this.$log.error('Stopped connection process (already running)');
             return;
         }
 
@@ -155,6 +158,9 @@ export class SocketFactory {
 
         // ensure an address to connect to has been specified
         if (!angular.isString(address)) {
+            this.$log.error('Stopping connection process (invalid address)');
+            this._endConnect();
+
             return;
         }
 
@@ -168,10 +174,13 @@ export class SocketFactory {
      * End the connection process.
      */
     _endConnect() {
+        this.$log.debug('Ending connection process');
+
         let connectInterval = this._connectInterval;
 
         // ensure a connect interval has been created
         if (!angular.isDefined(connectInterval)) {
+            this.$log.error('Ending connection process');
             return;
         }
 
@@ -186,11 +195,13 @@ export class SocketFactory {
      */
     connect(address) {
         if (!angular.isString(address)) {
+            this.$log.error('Cannot connect (invalid address)');
             return false;
         }
 
         // ensure we aren't already connecting or connected
         if (this.isConnecting || this.isConnected) {
+            this.$log.error('Cannot connect (already connected)');
             return false;
         }
 
@@ -207,9 +218,11 @@ export class SocketFactory {
         let socket = this._webSocket;
 
         if (!angular.isDefined(socket) || this.isClosing || this.isClosed) {
+            this.$log.error('Cannot close connection (not connected)');
             return;
         }
 
+        this.$log.debug('Closing connection');
         socket.close();
     }
 
@@ -218,11 +231,13 @@ export class SocketFactory {
      * @param {String} data The data to send.
      */
     send(data) {
-        if (!angular.isDefined(data)) {
+        if (!angular.isString(data)) {
+            this.$log.error('Cannot send data (invalid data type)');
             return;
         }
 
         if (!this.isConnected) {
+            this.$log.error('Cannot send data (not connected)');
             return;
         }
 
@@ -235,6 +250,7 @@ export class SocketFactory {
      */
     _onOpen(event) {
         let openedCallback = this.opened;
+        this.$log.debug('Connection opened');
 
         // end the connection process
         this._endConnect();
@@ -251,11 +267,13 @@ export class SocketFactory {
      */
     _onClose(event) {
         let closedCallback = this.closed;
+        this.$log.debug('Connection closed');
 
         // clear the WebSocket and begin the reconnect attempt
         this._webSocket = undefined;
 
         if (!this._forceClosed) {
+            this.$log.debug('Reconnecting');
             this._beginConnect();
         } else {
             this._forceClosed = false;
@@ -273,6 +291,7 @@ export class SocketFactory {
      */
     _onError(event) {
         let errorCallback = this.error;
+        this.$log.debug('Connection error');
 
         // invoke the error callback if it's deemed valid
         if (angular.isFunction(errorCallback)) {
@@ -305,6 +324,7 @@ export class SocketFactory {
      */
     _bindWebSocket() {
         if (!angular.isDefined(this._webSocket)) {
+            this.$log.debug('Cannot bind WebSocket (undefined)');
             return;
         }
 
