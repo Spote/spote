@@ -60,16 +60,16 @@ export class SocketFactory {
      * @param {$log} $log The $log service.
      * @param {$interval} $interval The $interval service.
      */
-    constructor($log, $interval) {
+    constructor($log, $interval, $window) {
         /**
          * The $log service.
-         * @type {$log}
+         * @type {Object}
          */
         this.$log = $log;
 
         /**
          * The $interval service.
-         * @type {$interval}
+         * @type {Object}
          */
         this.$interval = $interval;
 
