@@ -6,6 +6,7 @@ before_install:
     - bundle install
     - gem install scss-lint
     - npm install bower -g
+    - npm install karma -g
 before_script:
     - bower install
     - gulp dist:build
