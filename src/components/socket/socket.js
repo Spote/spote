@@ -17,4 +17,4 @@
  * The socket module.
  * @type {Object}
  */
-export let socketModule = angular.module('components.socket', []);
+export let socketModule = angular.module('components.socket', ['log.ex.uo']);

@@ -150,7 +150,9 @@ export class SocketFactory {
      */
     _connect() {
         // ensure we aren't already connecting or connected
-        if (this.isConnecting || this.isConnected) {
+        if (this.isConnected) {
+            this.$log.debug('Stopping connection process (connected)');
+            this._endConnect();
             return;
         }
 
@@ -160,7 +162,6 @@ export class SocketFactory {
         if (!angular.isString(address)) {
             this.$log.error('Stopping connection process (invalid address)');
             this._endConnect();
-
             return;
         }
 
@@ -194,6 +195,8 @@ export class SocketFactory {
      * @return {Boolean} Whther the connection attempt was made.
      */
     connect(address) {
+        this.$log.debug('Connecting to WebSocket (' + address + ')');
+
         if (!angular.isString(address)) {
             this.$log.error('Cannot connect (invalid address)');
             return false;
@@ -328,11 +331,11 @@ export class SocketFactory {
             return;
         }
 
-        let addSocketEvent = this._webSocket.addEventListener;
-        addSocketEvent('open', angular.bind(this, this._onOpen), false);
-        addSocketEvent('close', angular.bind(this, this._onClose),false);
-        addSocketEvent('error', angular.bind(this, this._onError), false);
-        addSocketEvent('message', angular.bind(this, this._onMessage), false);
+        let webSocket = this._webSocket;
+        webSocket.onopen = angular.bind(this, this._onOpen);
+        webSocket.onclose = angular.bind(this, this._onClose);
+        webSocket.onerror = angular.bind(this, this._onError);
+        webSocket.onmessage = angular.bind(this, this._onMessage);
     }
 }
 
