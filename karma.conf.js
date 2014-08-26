@@ -15,26 +15,24 @@
 
 module.exports = function(config) {
     config.set({
-        frameworks: ['jasmine', 'requirejs', 'traceur'],
+        frameworks: ['jasmine', 'traceur', 'requirejs'],
         files: [
-            'bower_components/angular/angular.js',
-            'bower_components/angular-animate/angular-animate.js',
-            'bower_components/angular-mocks/angular-mocks.js',
-            'bower_components/traceur-runtime/traceur-runtime.js',
-            'bower_components/angular-ui-router/release/angular-ui-router.js',
-            'bower_components/ui-router-extras/release/ct-ui-router-extras.js',
-            'bower_components/angular-logex/dist/log-ex-unobtrusive.js',
-            'bower_components/es6-module-loader/dist/es6-module-loader.js',
-            'bower_components/system.js/dist/system.js',
+            { pattern: 'bower_components/angular/angular.js', included: false },
+            { pattern: 'bower_components/angular-animate/angular-animate.js', included: false },
+            { pattern: 'bower_components/angular-mocks/angular-mocks.js', included: false },
+            { pattern: 'bower_components/traceur-runtime/traceur-runtime.js', included: false },
+            { pattern: 'bower_components/angular-ui-router/release/angular-ui-router.js', included: false },
+            { pattern: 'bower_components/ui-router-extras/release/ct-ui-router-extras.js', included: false },
+            { pattern: 'bower_components/angular-logex/dist/log-ex-unobtrusive.js', included: false },
+            { pattern: 'bower_components/es6-module-loader/dist/es6-module-loader.js', included: false },
+            { pattern: 'bower_components/system.js/dist/system.js', included: false },
             { pattern: 'src/*.js', included: false },
             { pattern: 'src/**/*.js', included: false },
             { pattern: 'test/**/*.spec.js', included: false },
-            { pattern: 'test/tests.js', included: false },
             'test/test-main.js'
         ],
         preprocessors: {
             'src/**/*.js': ['traceur', 'coverage'],
-            'test/tests.js': ['traceur'],
             'test/**/*.spec.js': ['traceur']
         },
         reporters: ['dots', 'coverage'],
@@ -42,14 +40,14 @@ module.exports = function(config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: false,
-        browsers: ['Chrome'],
+        browsers: ['Firefox', 'Chrome'],
         captureTimeout: 60000,
         singleRun: true,
         traceurPreprocessor: {
             options: {
                 experimental: true,
                 sourceMaps: false,
-                modules: 'instantiate'
+                modules: 'amd'
             }
         },
         coverageReporter: {

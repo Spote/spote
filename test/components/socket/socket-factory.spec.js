@@ -13,7 +13,8 @@
  * limitations under the License.
  */
 
-import {SocketState} from 'src/components/socket/socket-factory';
+import 'app';
+import {SocketState} from 'components/socket/socket-factory';
 
 describe('components.socket.SocketFactory', function() {
     var socket;

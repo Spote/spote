@@ -13,10 +13,69 @@
  * limitations under the License.
  */
 
-System.config({
-    baseURL: '/base'
+var allTestFiles = ['app'];
+var TEST_REGEXP = /spec\.js$/;
+
+var pathToModule = function(path) {
+    return path.replace(/^\/base\//, '../').replace(/\.js$/, '');
+};
+
+Object.keys(window.__karma__.files).forEach(function(file) {
+    if (TEST_REGEXP.test(file)) {
+        allTestFiles.push(pathToModule(file));
+    }
 });
 
-System.import('test/tests')
-    .then(window.__karma__.start)
-    .catch(console.error.bind(console));
+requirejs.config({
+    baseUrl: '/base/src/',
+    paths: {
+        'angular': '../bower_components/angular/angular',
+        'angularAnimate': '../bower_components/angular-animate/angular-animate',
+        'angularMocks': '../bower_components/angular-mocks/angular-mocks',
+        'traceur': '../bower_components/traceur-runtime/traceur-runtime',
+        'angularUiRouter': '../bower_components/angular-ui-router/release/angular-ui-router',
+        'uiRouterExtras': '../bower_components/ui-router-extras/release/ct-ui-router-extras',
+        'logEx': '../bower_components/angular-logex/dist/log-ex-unobtrusive',
+        'esModuleLoader': '../bower_components/es6-module-loader/dist/es6-module-loader',
+        'systemJs': '../bower_components/system.js/dist/system'
+    },
+    shim: {
+        'app': {
+            deps: ['angular', 'angularAnimate', 'angularMocks', 'angularUiRouter',
+                'uiRouterExtras', 'logEx', 'esModuleLoader', 'systemJs'],
+            exports: 'app'
+        },
+        'angularAnimate': {
+            deps: ['angular'],
+            exports: 'angularAnimate'
+        },
+        'angularMocks': {
+            deps: ['angular'],
+            exports: 'angularMocks'
+        },
+        'angularUiRouter': {
+            deps: ['angular'],
+            exports: 'angularUiRouter'
+        },
+        'uiRouterExtras': {
+            deps: ['angular', 'angularUiRouter'],
+            exports: 'uiRouterExtras'
+        },
+        'logEx': {
+            deps: ['angular'],
+            exports: 'logEx'
+        },
+        'esModuleLoader': {
+            exports: 'esModuleLoader'
+        },
+        'systemJs': {
+            deps: ['esModuleLoader'],
+            exports: 'systemJs'
+        },
+        'components/socket/socket-factory': {
+            'deps': ['angular']
+        }
+    },
+    deps: allTestFiles,
+    callback: window.__karma__.start
+});
