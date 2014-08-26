@@ -35,7 +35,7 @@ module.exports = function(config) {
             'src/**/*.js': ['traceur', 'coverage'],
             'test/**/*.spec.js': ['traceur']
         },
-        reporters: ['dots', 'coverage'],
+        reporters: ['dots', 'coverage', 'coveralls'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
@@ -52,7 +52,10 @@ module.exports = function(config) {
         },
         coverageReporter: {
             reporters: [
-                { type: 'text' }
+                {
+                    type: 'lcov',
+                    dir: 'coverage/'
+                }
             ]
         }
     });
