@@ -60,12 +60,12 @@ export class SocketFactory {
      * @param {$log} $log The $log service.
      * @param {$interval} $interval The $interval service.
      */
-    constructor($log, $interval, $window) {
+    constructor($log, $interval) {
         /**
          * The $log service.
          * @type {Object}
          */
-        this.$log = $log;
+        this.$log = $log.getInstance('components.socket.SocketFactory');
 
         /**
          * The $interval service.
@@ -328,11 +328,11 @@ export class SocketFactory {
             return;
         }
 
-        let socket = this._webSocket;
-        socket.onopen = angular.bind(this, this._onOpen);
-        socket.onclose = angular.bind(this, this._onClose);
-        socket.onerror = angular.bind(this, this._onError);
-        socket.onmessage = angular.bind(this, this._onMessage);
+        let addSocketEvent = this._webSocket.addEventListener;
+        addSocketEvent('open', angular.bind(this, this._onOpen), false);
+        addSocketEvent('close', angular.bind(this, this._onClose),false);
+        addSocketEvent('error', angular.bind(this, this._onError), false);
+        addSocketEvent('message', angular.bind(this, this._onMessage), false);
     }
 }
 
