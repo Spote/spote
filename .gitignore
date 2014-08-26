@@ -8,6 +8,3 @@ dev/*
 
 # Unit testing
 coverage/*
-
-# Ruby
-Gemfile.lock
