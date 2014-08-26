@@ -8,6 +8,6 @@ before_install:
     - npm install bower -g
 before_script:
     - bower install
-    - gulp dev:build
+    - gulp dist:build
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
