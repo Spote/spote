@@ -19,7 +19,7 @@ import {socketModule} from './socket';
  * The milliseconds between each connection attempt.
  * @type {Number}
  */
-const retryInterval = 400;
+const retryInterval = 100;
 
 /**
  * The WebSocket states.
