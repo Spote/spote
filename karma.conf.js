@@ -29,11 +29,13 @@ module.exports = function(config) {
             { pattern: 'src/*.js', included: false },
             { pattern: 'src/**/*.js', included: false },
             { pattern: 'test/**/*.spec.js', included: false },
+            { pattern: 'test/**/*.mock.js', included: false },
             'test/test-main.js'
         ],
         preprocessors: {
             'src/**/*.js': ['traceur', 'coverage'],
-            'test/**/*.spec.js': ['traceur']
+            'test/**/*.spec.js': ['traceur'],
+            'test/**/*.mock.js': ['traceur']
         },
         reporters: ['dots', 'coverage', 'coveralls'],
         port: 9876,

@@ -14,6 +14,7 @@
  */
 
 import 'app';
+import {MockWebSocket} from '../../mock/websocket.mock';
 import {SocketState} from 'components/socket/socket-factory';
 
 describe('components.socket.SocketFactory', function() {
@@ -25,47 +26,8 @@ describe('components.socket.SocketFactory', function() {
         socket = _socketFactory_;
 
         spyOn(socket, '_createWebSocket').and.callFake(() => {
-            socket._webSocket = {
-                address: socket._address,
-                readyState: SocketState.Connecting,
-                close() {
-                    this.readyState = SocketState.Closed;
-                    this._callClose();
-                },
-                send: jasmine.createSpy('WebSocket.send'),
-                _receive(message) {
-                    this._callMessage({
-                        data: message
-                    });
-                },
-                _connected() {
-                    this.readyState = SocketState.Connected;
-                    this._callOpen();
-                },
-                _errorConnecting() {
-                    this._callError();
-                },
-                _callOpen() {
-                    if (angular.isFunction(this.onopen)) {
-                        this.onopen.call(this);
-                    }
-                },
-                _callClose() {
-                    if (angular.isFunction(this.onclose)) {
-                        this.onclose.call(this);
-                    }
-                },
-                _callError() {
-                    if (angular.isFunction(this.onerror)) {
-                        this.onerror.call(this);
-                    }
-                },
-                _callMessage(event = null) {
-                    if (angular.isFunction(this.onmessage)) {
-                        this.onmessage.call(this, event);
-                    }
-                }
-            };
+            socket._webSocket = new MockWebSocket(socket._address);
+            spyOn(socket._webSocket, 'send').and.callThrough();
         });
     }));
 
@@ -138,7 +100,7 @@ describe('components.socket.SocketFactory', function() {
 
     it('it is connected a while after connecting', () => {
         socket.connect('ws://localhost:1234/ws');
-        socket._webSocket._connected();
+        socket._webSocket._mockConnected();
         expect(socket.isConnected).toBe(true);
     });
 
@@ -153,7 +115,7 @@ describe('components.socket.SocketFactory', function() {
 
         socket.opened = opened;
         socket.connect('ws://localhost:1234/ws');
-        socket._webSocket._connected();
+        socket._webSocket._mockConnected();
 
         expect(opened).toHaveBeenCalled();
     });
@@ -173,7 +135,7 @@ describe('components.socket.SocketFactory', function() {
 
         socket.error = error;
         socket.connect('ws://localhost:1234/ws');
-        socket._webSocket._errorConnecting();
+        socket._webSocket._mockErrorConnecting();
 
         expect(error).toHaveBeenCalled();
     });
@@ -184,7 +146,7 @@ describe('components.socket.SocketFactory', function() {
 
         socket.message = message;
         socket.connect('ws://localhost:1234/ws');
-        socket._webSocket._receive(data);
+        socket._webSocket._mockReceive(data);
 
         expect(message).toHaveBeenCalledWith({ data: data });
     });
@@ -193,7 +155,7 @@ describe('components.socket.SocketFactory', function() {
         const data = "test123";
 
         socket.connect('ws://localhost:1234/ws');
-        socket._webSocket._connected();
+        socket._webSocket._mockConnected();
         socket.send(data);
 
         expect(socket._webSocket.send).toHaveBeenCalledWith(data);
@@ -201,7 +163,7 @@ describe('components.socket.SocketFactory', function() {
 
     it('doesn\'t send the data when the data is undefined', () => {
         socket.connect('ws://localhost:1234/ws');
-        socket._webSocket._connected();
+        socket._webSocket._mockConnected();
         socket.send();
 
         expect(socket._webSocket.send).not.toHaveBeenCalled();
