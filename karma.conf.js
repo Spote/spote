@@ -38,10 +38,10 @@ module.exports = function(config) {
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
-        autoWatch: false,
+        autoWatch: true,
         browsers: ['Firefox', 'Chrome'],
         captureTimeout: 60000,
-        singleRun: true,
+        singleRun: false,
         traceurPreprocessor: {
             options: {
                 experimental: true,

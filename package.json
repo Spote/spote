@@ -38,7 +38,7 @@
     "traceur": "0.0.58"
   },
   "scripts": {
-    "test": "karma start --browsers Firefox"
+    "test": "karma start --browsers Firefox --single-run true"
   },
   "author": "",
   "licenses": [
