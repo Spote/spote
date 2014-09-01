@@ -42,7 +42,12 @@
     "test": "karma start --browsers Firefox"
   },
   "author": "",
-  "license": "ISC",
+  "licenses": [
+    {
+      "type": "Apache",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  ],
   "dependencies": {
     "karma-coverage": "^0.2.6"
   }
