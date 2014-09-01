@@ -29,7 +29,6 @@
     "karma-coverage": "git://github.com/Spote/karma-coverage",
     "karma-coveralls": "^0.1.4",
     "karma-firefox-launcher": "^0.1.3",
-    "karma-harmony-coverage": "^0.2.6",
     "karma-jasmine": "~0.2.0",
     "karma-requirejs": "^0.2.2",
     "karma-traceur-preprocessor": "^0.3.1",
