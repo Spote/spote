@@ -24,20 +24,17 @@ module.exports = function(config) {
             { pattern: 'bower_components/angular-ui-router/release/angular-ui-router.js', included: false },
             { pattern: 'bower_components/ui-router-extras/release/ct-ui-router-extras.js', included: false },
             { pattern: 'bower_components/angular-logex/dist/log-ex-unobtrusive.js', included: false },
-            { pattern: 'bower_components/es6-module-loader/dist/es6-module-loader.js', included: false },
-            { pattern: 'bower_components/system.js/dist/system.js', included: false },
-            { pattern: 'src/*.js', included: false },
             { pattern: 'src/**/*.js', included: false },
             { pattern: 'test/**/*.spec.js', included: false },
-            { pattern: 'test/**/*.mock.js', included: false },
+            { pattern: 'test/mock/**', included: false },
             'test/test-main.js'
         ],
         preprocessors: {
-            'src/**/*.js': ['traceur', 'coverage'],
+            'src/**/*.js': ['coverage'],
             'test/**/*.spec.js': ['traceur'],
-            'test/**/*.mock.js': ['traceur']
+            'test/mock/**': ['traceur']
         },
-        reporters: ['dots', 'coverage', 'coveralls'],
+        reporters: ['dots', 'coverage'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
@@ -48,15 +45,21 @@ module.exports = function(config) {
         traceurPreprocessor: {
             options: {
                 experimental: true,
-                sourceMaps: false,
+                sourceMaps: true,
                 modules: 'amd'
             }
         },
         coverageReporter: {
+            instrumenter: {
+                '**/*.js': 'ismailia'
+            },
             reporters: [
                 {
                     type: 'lcov',
                     dir: 'coverage/'
+                },
+                {
+                    type: 'text'
                 }
             ]
         }

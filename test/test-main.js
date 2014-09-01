@@ -35,14 +35,12 @@ requirejs.config({
         'traceur': '../bower_components/traceur-runtime/traceur-runtime',
         'angularUiRouter': '../bower_components/angular-ui-router/release/angular-ui-router',
         'uiRouterExtras': '../bower_components/ui-router-extras/release/ct-ui-router-extras',
-        'logEx': '../bower_components/angular-logex/dist/log-ex-unobtrusive',
-        'esModuleLoader': '../bower_components/es6-module-loader/dist/es6-module-loader',
-        'systemJs': '../bower_components/system.js/dist/system'
+        'logEx': '../bower_components/angular-logex/dist/log-ex-unobtrusive'
     },
     shim: {
         'app': {
             deps: ['angular', 'angularAnimate', 'angularMocks', 'angularUiRouter',
-                'uiRouterExtras', 'logEx', 'esModuleLoader', 'systemJs'],
+                'uiRouterExtras', 'logEx'],
             exports: 'app'
         },
         'angularAnimate': {
