@@ -34,7 +34,7 @@ module.exports = function(config) {
             'test/**/*.spec.js': ['traceur'],
             'test/mock/**': ['traceur']
         },
-        reporters: ['dots', 'coverage'],
+        reporters: ['dots', 'coverage', 'coveralls'],
         port: 9876,
         colors: true,
         logLevel: config.LOG_INFO,
