@@ -1,21 +1,19 @@
 /* Copyright 2014 Jack Wakefield
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the 'License');
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an 'AS IS' BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
 
-import 'app';
 import {MockWebSocket} from '../../mock/websocket.mock';
-import {SocketState} from 'components/socket/socket-factory';
 
 describe('components.socket.SocketFactory', function() {
     var socket;
@@ -28,6 +26,7 @@ describe('components.socket.SocketFactory', function() {
         spyOn(socket, '_createWebSocket').and.callFake(() => {
             socket._webSocket = new MockWebSocket(socket._address);
             spyOn(socket._webSocket, 'send').and.callThrough();
+            spyOn(socket._webSocket, 'close').and.callThrough();
         });
     }));
 
@@ -52,8 +51,8 @@ describe('components.socket.SocketFactory', function() {
     });
 
     it('won\'t connect while already connecting', () => {
-        socket.connect("ws://localhost:1234");
-        let result = socket.connect("ws://localhost:1234");
+        socket.connect('ws://localhost:1234');
+        let result = socket.connect('ws://localhost:1234');
         expect(result).toBe(false);
     });
 
@@ -93,6 +92,11 @@ describe('components.socket.SocketFactory', function() {
         expect(socket._webSocket).toBeUndefined();
     });
 
+    it('creates a WebSocket', () => {
+        socket._createWebSocket();
+        expect(socket._webSocket).not.toBe(null);
+    });
+
     it('it is connecting after calling connect', () => {
         socket.connect('ws://localhost:1234/ws');
         expect(socket.isConnecting).toBe(true);
@@ -108,6 +112,29 @@ describe('components.socket.SocketFactory', function() {
         socket.connect('ws://localhost:1234/ws');
         socket.close();
         expect(socket.isClosed).toBe(true);
+    });
+
+    it('should be force closed when calling close', () => {
+        var result;
+
+        socket.closed = () => {
+            result = socket._forceClosed;
+        };
+
+        socket.connect('ws://localhost:1234/ws');
+        socket.close();
+
+        expect(result).toBe(true);
+    });
+
+    it('it doesn\'t close when closing', () => {
+        socket.close();
+        expect(socket._forceClosed).toBe(false);
+    });
+
+    it('it doesn\'t close when not connected', () => {
+        socket.close();
+        expect(socket._forceClosed).toBe(false);
     });
 
     it('calls the opened callback after connecting', () => {
@@ -141,7 +168,7 @@ describe('components.socket.SocketFactory', function() {
     });
 
     it('calls message after a message is received', () => {
-        const data = "test123";
+        const data = 'test123';
         let message = jasmine.createSpy('message');
 
         socket.message = message;
@@ -152,20 +179,36 @@ describe('components.socket.SocketFactory', function() {
     });
 
     it('sends the data sent', () => {
-        const data = "test123";
+        const data = 'test123';
 
         socket.connect('ws://localhost:1234/ws');
         socket._webSocket._mockConnected();
-        socket.send(data);
+        var result = socket.send(data);
 
+        expect(result).toBe(true);
         expect(socket._webSocket.send).toHaveBeenCalledWith(data);
     });
 
     it('doesn\'t send the data when the data is undefined', () => {
         socket.connect('ws://localhost:1234/ws');
         socket._webSocket._mockConnected();
-        socket.send();
+        var result = socket.send();
 
+        expect(result).toBe(false);
         expect(socket._webSocket.send).not.toHaveBeenCalled();
+    });
+
+    it('doesn\'t send the data when the socket isn\'t connected', () => {
+        var result = socket.send('test123');
+
+        expect(result).toBe(false);
+    });
+
+    it('doesn\'t bind the WebSocket when it hasn\'t been created', () => {
+        expect(() => socket._bindWebSocket()).not.toThrow();
+    });
+
+    it('doesn\'t end the connection process if it hasn\'t begun', () => {
+        expect(() => socket._endConnect()).not.toThrow();
     });
 });

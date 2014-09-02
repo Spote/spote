@@ -150,6 +150,7 @@ export class SocketFactory {
      */
     _connect() {
         // ensure we aren't already connecting or connected
+        /* istanbul ignore if: covered by connect() */
         if (this.isConnected) {
             this.$log.debug('Stopping connection process (connected)');
             this._endConnect();
@@ -159,6 +160,7 @@ export class SocketFactory {
         let address = this._address;
 
         // ensure an address to connect to has been specified
+        /* istanbul ignore if: covered by connect() */
         if (!angular.isString(address)) {
             this.$log.error('Stopping connection process (invalid address)');
             this._endConnect();
@@ -226,6 +228,7 @@ export class SocketFactory {
         }
 
         this.$log.debug('Closing connection');
+        this._forceClosed = true;
         socket.close();
     }
 
@@ -236,15 +239,16 @@ export class SocketFactory {
     send(data) {
         if (!angular.isString(data)) {
             this.$log.error('Cannot send data (invalid data type)');
-            return;
+            return false;
         }
 
         if (!this.isConnected) {
             this.$log.error('Cannot send data (not connected)');
-            return;
+            return false;
         }
 
         this._webSocket.send(data);
+        return true;
     }
 
     /**
@@ -275,16 +279,16 @@ export class SocketFactory {
         // clear the WebSocket and begin the reconnect attempt
         this._webSocket = undefined;
 
+        // invoke the closed callback if it's deemed valid
+        if (angular.isFunction(closedCallback)) {
+            closedCallback.call(this, event);
+        }
+
         if (!this._forceClosed) {
             this.$log.debug('Reconnecting');
             this._beginConnect();
         } else {
             this._forceClosed = false;
-        }
-
-        // invoke the closed callback if it's deemed valid
-        if (angular.isFunction(closedCallback)) {
-            closedCallback.call(this, event);
         }
     }
 
@@ -318,6 +322,7 @@ export class SocketFactory {
     /**
      * Create the WebSocket.
      */
+    /* istanbul ignore next: stubbed by unit tests */
     _createWebSocket() {
         this._webSocket = new WebSocket(this._address);
     }
