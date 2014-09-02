@@ -7,6 +7,10 @@
     "url": "https://github.com/Spote/Frontend.git"
   },
   "main": "gulpfile.js",
+  "dependencies": {
+    "ismailia": "^0.9.0",
+    "traceur": "0.0.58"
+  },
   "devDependencies": {
     "connect-modrewrite": "^0.7.7",
     "gulp": "^3.8.7",
@@ -21,10 +25,12 @@
     "gulp-sourcemaps": "^1.1.1",
     "gulp-traceur": "^0.13.0",
     "gulp-watch": "^0.6.9",
+    "ismailia": "^0.9.0",
     "istanbul": "^0.3.0",
     "jshint": "^2.5.5",
     "jshint-stylish": "^0.4.0",
-    "karma": "^0.12.22",
+    "karma-coverage": "^0.2.6",
+    "karma": "^0.12.23",
     "karma-chrome-launcher": "^0.1.4",
     "karma-coverage": "git://github.com/Spote/karma-coverage",
     "karma-coveralls": "^0.1.4",
@@ -34,8 +40,7 @@
     "karma-traceur-preprocessor": "^0.3.1",
     "require-dir": "^0.1.0",
     "requirejs": "^2.1.14",
-    "scsslint": "0.0.3",
-    "traceur": "0.0.58"
+    "scsslint": "0.0.3"
   },
   "scripts": {
     "test": "karma start --browsers Firefox --single-run true"
@@ -46,8 +51,5 @@
       "type": "Apache",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     }
-  ],
-  "dependencies": {
-    "karma-coverage": "^0.2.6"
-  }
+  ]
 }
