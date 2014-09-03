@@ -256,16 +256,11 @@ export class SocketFactory {
      * @param {Object} event The event object.
      */
     _onOpen(event) {
-        let openedCallback = this.opened;
         this.$log.debug('Connection opened');
 
         // end the connection process
         this._endConnect();
-
-        // invoke the opened callback if it's deemed valid
-        if (angular.isFunction(openedCallback)) {
-            openedCallback.call(this, event);
-        }
+        (this.opened || angular.noop)(event);
     }
 
     /**
@@ -278,11 +273,7 @@ export class SocketFactory {
 
         // clear the WebSocket and begin the reconnect attempt
         this._webSocket = undefined;
-
-        // invoke the closed callback if it's deemed valid
-        if (angular.isFunction(closedCallback)) {
-            closedCallback.call(this, event);
-        }
+        (this.closed || angular.noop)(event);
 
         if (!this._forceClosed) {
             this.$log.debug('Reconnecting');
@@ -297,13 +288,8 @@ export class SocketFactory {
      * @param {Object} event The event object.
      */
     _onError(event) {
-        let errorCallback = this.error;
         this.$log.debug('Connection error');
-
-        // invoke the error callback if it's deemed valid
-        if (angular.isFunction(errorCallback)) {
-            errorCallback.call(this, event);
-        }
+        (this.error || angular.noop)(event);
     }
 
     /**
@@ -311,12 +297,7 @@ export class SocketFactory {
      * @param {Object} event The event object.
      */
     _onMessage(event) {
-        let messageCallback = this.message;
-
-        // invoke the message callback if it's deemed valid
-        if (angular.isFunction(messageCallback)) {
-            messageCallback.call(this, event);
-        }
+        (this.message || angular.noop)(event);
     }
 
     /**
@@ -337,10 +318,11 @@ export class SocketFactory {
         }
 
         let webSocket = this._webSocket;
-        webSocket.onopen = angular.bind(this, this._onOpen);
-        webSocket.onclose = angular.bind(this, this._onClose);
-        webSocket.onerror = angular.bind(this, this._onError);
-        webSocket.onmessage = angular.bind(this, this._onMessage);
+        webSocket.onopen = angular.bind(this, event => this._onOpen(event));
+        webSocket.onclose = angular.bind(this, event => this._onClose(event));
+        webSocket.onerror = angular.bind(this, event => this._onError(event));
+        webSocket.onmessage = angular.bind(this,
+            event => this._onMessage(event));
     }
 }
 
