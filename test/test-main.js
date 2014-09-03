@@ -62,8 +62,6 @@ Object.keys(window.__karma__.files).forEach(function(file) {
             'deps': ['app']
         };
 
-        console.log(path);
-
         allTestFiles.push(path);
     }
 });
