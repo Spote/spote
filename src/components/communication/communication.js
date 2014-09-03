@@ -17,4 +17,5 @@
  * The communication module.
  * @type {Object}
  */
-export let communicationModule = angular.module('components.communication', []);
+export let communicationModule = angular.module('components.communication',
+    ['log.ex.uo']);
