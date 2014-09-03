@@ -2,7 +2,7 @@ language: node_js
 node_js:
     - "0.10"
 env:
-    - secure: "oWipxg7y4Qfrnp31pWRuFEKlwZv+V2L+r11D+tx87fsSD1Ve26xBlKgI8uFk9yBFVizloECjPIHyYj5ll17i0eUJt5jn5+NfpeTLcTsZOzJjiLQjYdSozhCxxdiVRXRifJlOKSava7aONQbZtyEiR7+iPVGxwotUCgKuH/00P2g="
+    - secure: "eDdhY0Zyi2UYCHVEdXh+mnJ//xxG6eMu3qc3W+99WkmMGkk7HX7dA0A2H4hThOmZrOrtDS63TnGg/u6YpRFYpizwjbcwc7pe1baEszd5pZ7bDCVmwxWEhTZfQJQ+l49k9Fl0tIfI0PO72DIDZ91MG9XsdMuhSuqkoEbwTgP/6Rg="
 before_install:
     - gem install bundler
     - bundle install
