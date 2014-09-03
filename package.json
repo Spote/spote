@@ -1,14 +1,13 @@
 {
   "name": "Spote",
-  "version": "0.0.0",
+  "version": "0.1.0-dev",
   "description": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Spote/Frontend.git"
+    "url": "https://github.com/Spote/spote.git"
   },
   "main": "gulpfile.js",
   "dependencies": {
-    "ismailia": "^0.9.0",
     "traceur": "0.0.58"
   },
   "devDependencies": {
