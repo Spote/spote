@@ -69,9 +69,6 @@ requirejs.config({
         'systemJs': {
             deps: ['esModuleLoader'],
             exports: 'systemJs'
-        },
-        'components/socket/socket-factory': {
-            'deps': ['angular']
         }
     },
     deps: allTestFiles,

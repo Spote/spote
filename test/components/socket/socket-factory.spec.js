@@ -13,6 +13,7 @@
  * limitations under the License.
  */
 
+import 'app';
 import {MockWebSocket} from '../../mock/websocket.mock';
 
 describe('components.socket.SocketFactory', function() {
