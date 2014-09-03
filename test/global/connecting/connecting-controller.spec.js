@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import 'app';
 import 'global/connecting/connecting';
 import '../../mock/components/socket/socket-factory.mock';
 

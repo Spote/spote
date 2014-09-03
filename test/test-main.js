@@ -15,6 +15,40 @@
 
 var allTestFiles = ['app'];
 var TEST_REGEXP = /spec\.js$/;
+var shim = {
+    'app': {
+        deps: ['angular', 'angularAnimate', 'angularMocks', 'angularUiRouter',
+            'uiRouterExtras', 'logEx'],
+        exports: 'app'
+    },
+    'angularAnimate': {
+        deps: ['angular'],
+        exports: 'angularAnimate'
+    },
+    'angularMocks': {
+        deps: ['angular'],
+        exports: 'angularMocks'
+    },
+    'angularUiRouter': {
+        deps: ['angular'],
+        exports: 'angularUiRouter'
+    },
+    'uiRouterExtras': {
+        deps: ['angular', 'angularUiRouter'],
+        exports: 'uiRouterExtras'
+    },
+    'logEx': {
+        deps: ['angular'],
+        exports: 'logEx'
+    },
+    'esModuleLoader': {
+        exports: 'esModuleLoader'
+    },
+    'systemJs': {
+        deps: ['esModuleLoader'],
+        exports: 'systemJs'
+    }
+};
 
 var pathToModule = function(path) {
     return path.replace(/^\/base\//, '../').replace(/\.js$/, '');
@@ -22,7 +56,15 @@ var pathToModule = function(path) {
 
 Object.keys(window.__karma__.files).forEach(function(file) {
     if (TEST_REGEXP.test(file)) {
-        allTestFiles.push(pathToModule(file));
+        var path = pathToModule(file);
+
+        shim[path] = {
+            'deps': ['app']
+        };
+
+        console.log(path);
+
+        allTestFiles.push(path);
     }
 });
 
@@ -37,40 +79,7 @@ requirejs.config({
         'uiRouterExtras': '../bower_components/ui-router-extras/release/ct-ui-router-extras',
         'logEx': '../bower_components/angular-logex/dist/log-ex-unobtrusive'
     },
-    shim: {
-        'app': {
-            deps: ['angular', 'angularAnimate', 'angularMocks', 'angularUiRouter',
-                'uiRouterExtras', 'logEx'],
-            exports: 'app'
-        },
-        'angularAnimate': {
-            deps: ['angular'],
-            exports: 'angularAnimate'
-        },
-        'angularMocks': {
-            deps: ['angular'],
-            exports: 'angularMocks'
-        },
-        'angularUiRouter': {
-            deps: ['angular'],
-            exports: 'angularUiRouter'
-        },
-        'uiRouterExtras': {
-            deps: ['angular', 'angularUiRouter'],
-            exports: 'uiRouterExtras'
-        },
-        'logEx': {
-            deps: ['angular'],
-            exports: 'logEx'
-        },
-        'esModuleLoader': {
-            exports: 'esModuleLoader'
-        },
-        'systemJs': {
-            deps: ['esModuleLoader'],
-            exports: 'systemJs'
-        }
-    },
+    shim: shim,
     deps: allTestFiles,
     callback: window.__karma__.start
 });

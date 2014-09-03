@@ -13,8 +13,6 @@
  * limitations under the License.
  */
 
-import 'app';
-
 describe('AppController', function() {
     var $rootScope, controller;
 

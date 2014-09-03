@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import 'app';
 import {AccessState} from 'components/auth/auth-service';
 
 describe('components.auth.AuthService', function() {

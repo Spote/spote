@@ -13,7 +13,6 @@
  * limitations under the License.
  */
 
-import 'app';
 import '../../mock/components/socket/socket-factory.mock';
 
 describe('components.communication.CommunicationService', function() {
