@@ -22,7 +22,7 @@
  */
 export function checkAccessState($rootScope, $state, communicationService,
         authService) {
-    $rootScope.$on("$stateChangeStart", function(event, toState, toParams,
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams,
             fromState, fromParams) {
         if (!authService.canAccess(toState.data.access)) {
             event.preventDefault();
