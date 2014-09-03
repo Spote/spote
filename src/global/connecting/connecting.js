@@ -17,4 +17,6 @@
  * The connecting module.
  * @type {Object}
  */
-export let connectingModule = angular.module('global.connecting', []);
+export let connectingModule = angular.module('global.connecting', [
+    'ct.ui.router.extras',
+    'components.communication']);
