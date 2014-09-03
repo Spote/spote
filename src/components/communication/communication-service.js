@@ -49,10 +49,10 @@ export class CommunicationService {
          */
         this._address = address;
 
-        socket.opened = angular.bind(this, this._onOpen);
-        socket.closed = angular.bind(this, this._onClose);
-        socket.error = angular.bind(this, this._onError);
-        socket.message = angular.bind(this, this._onMessage);
+        socket.opened = angular.bind(this, event => this._onOpen(event));
+        socket.closed = angular.bind(this, event => this._onClose(event));
+        socket.error = angular.bind(this, event => this._onError(event));
+        socket.message = angular.bind(this, event => this._onMessage(event));
     }
 
     /**
@@ -75,40 +75,38 @@ export class CommunicationService {
 
         if (this.isConnected || this.isConnecting) {
             this.$log.error('Can\'t connect (already connected)');
-            return;
+            return false;
         }
 
-        this._socket.connect(address);
+        return this._socket.connect(address);
     }
 
     /**
      * Callback for the socket open event.
      */
-    _onOpen() {
-        this.$rootScope.$broadcast(
-            'components.CommunicationService.connected');
+    _onOpen(event) {
+        this.$rootScope.$broadcast('CommunicationService.connected');
     }
 
     /**
      * Callback for the socket close event.
      */
-    _onClose() {
-        this.$rootScope.$broadcast(
-            'components.CommunicationService.disconnected');
+    _onClose(event) {
+        this.$rootScope.$broadcast('CommunicationService.disconnected');
     }
 
     /**
      * Callback for the socket error event.
      */
-    _onError() {
-        this.$rootScope.$broadcast(
-            'components.CommunicationService.error');
+    _onError(event) {
+        this.$rootScope.$broadcast('CommunicationService.error');
     }
 
     /**
      * Callback for the socket message event.
      */
-    _onMessage(message) {
+    _onMessage(event) {
+        this.$rootScope.$broadcast('CommunicationService.message');
     }
 }
 
