@@ -60,25 +60,25 @@ export class MockWebSocket {
         this._mockCallError();
     }
 
-    _mockCallOpen() {
+    _mockCallOpen(event) {
         if (angular.isFunction(this.onopen)) {
-            this.onopen.call(this);
+            this.onopen.call(this, event);
         }
     }
 
-    _mockCallClose() {
+    _mockCallClose(event) {
         if (angular.isFunction(this.onclose)) {
-            this.onclose.call(this);
+            this.onclose.call(this, event);
         }
     }
 
-    _mockCallError() {
+    _mockCallError(event) {
         if (angular.isFunction(this.onerror)) {
-            this.onerror.call(this);
+            this.onerror.call(this, event);
         }
     }
 
-    _mockCallMessage(event = null) {
+    _mockCallMessage(event) {
         if (angular.isFunction(this.onmessage)) {
             this.onmessage.call(this, event);
         }
