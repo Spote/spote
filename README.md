@@ -1,4 +1,4 @@
-# Spote [![](http://img.shields.io/travis/Spote/spote.svg?style=flat-square)](http://travis-ci.org/Spote/spote) [![](http://img.shields.io/coveralls/Spote/spote.svg?style=flat-square)](https://coveralls.io/r/Spote/spote) ![](http://img.shields.io/david/dev/Spote/spote.svg?style=flat-square)
+# Spote [![](http://img.shields.io/travis/Spote/spote.svg?style=flat-square)](http://travis-ci.org/Spote/spote) [![](http://img.shields.io/coveralls/Spote/spote.svg?style=flat-square)](https://coveralls.io/r/Spote/spote) ![](http://img.shields.io/david/Spote/spote.svg?style=flat-square) ![](http://img.shields.io/david/dev/Spote/spote.svg?style=flat-square)
 
 Spote is a headless media server for Spotify with no dependence on the
 official Spotify software.
